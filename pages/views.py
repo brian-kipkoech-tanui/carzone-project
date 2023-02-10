@@ -13,6 +13,11 @@ class Home(TemplateView):
         context['teams'] = Team.objects.all()
         context['featured_cars'] = Car.objects.order_by('-created_date').filter(is_featured=True)
         context['all_cars'] = Car.objects.all().order_by('-created_date')
+        # context['search_fields'] = Car.objects.values('color', 'city', 'state', 'year', 'body_style')
+        context['color_search'] = Car.objects.values_list('color', flat=True).distinct()
+        context['city_search'] = Car.objects.values_list('city', flat=True).distinct()
+        context['year_search'] = Car.objects.values_list('year', flat=True).distinct()
+        context['body_style_search'] = Car.objects.values_list('body_style', flat=True).distinct()
         return context
     
 class About(TemplateView):
